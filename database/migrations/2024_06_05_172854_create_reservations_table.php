@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer("property_id")->references('id')->on('properties')->onDelete('cascade');
             $table->integer("user_id")->references('id')->on('users')->onDelete('cascade');
             $table->integer("price");
+            $table->integer("days");
+            $table->boolean("taken");
         });
     }
 

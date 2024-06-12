@@ -14,7 +14,8 @@ class Reservation extends Model
         'user_id',
         'start_date', 
         'end_date',  
-        'beds',
         'price',
+        'taken',
+        'days',
     ];
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProportyController;
+use App\Http\Controllers\ReservationController;
 use Inertia\Inertia;
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
@@ -40,11 +41,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/gallery/{id}/add', [ProportyController::class, 'myproperties'])->name('myproperties');
     Route::get('/gallery/{id}/remove', [ProportyController::class, 'myproperties'])->name('myproperties');
     
-    Route::get('/myproperties', [ProportyController::class, 'myproperties'])->name('myproperties');
-    Route::get('/myproperties', [ProportyController::class, 'myproperties'])->name('myproperties');
-    Route::get('/myproperties', [ProportyController::class, 'myproperties'])->name('myproperties');
-    Route::get('/myproperties', [ProportyController::class, 'myproperties'])->name('myproperties');
-
+    Route::post('/reservation', [ReservationController::class, 'reserve'])->name('reserve');
+    // Route::get('/reservation', [ProportyController::class, 'myproperties'])->name('myproperties');
+    // Route::get('/reservation', [ProportyController::class, 'myproperties'])->name('myproperties');
+    // Route::get('/reservation', [ProportyController::class, 'myproperties'])->name('myproperties');
 
 
 
