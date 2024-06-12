@@ -24,6 +24,7 @@ function NavBar({user})
                 <Link href="/about" className="text-white hover:text-cyan-200">About</Link>
                 <Link href="/properties/new" className="text-white hover:text-cyan-200">Add property</Link>
                 <Link href="/myproperties" className="text-white hover:text-cyan-200">My properties</Link>
+                <Link href="/reservation/myproperties" className="text-white hover:text-cyan-200">My reservationes</Link>
                 <Link href="/usersettings" className="text-white hover:text-cyan-200">Settings</Link>
             </div>
             <div className="md:hidden">
@@ -39,6 +40,7 @@ function NavBar({user})
                 <Link href="/about" className="text-white hover:text-cyan-200">About</Link>
                 <Link href="/properties/new" className="text-white hover:text-cyan-200">Add property</Link>
                 <Link href="/properties" className="text-white hover:text-cyan-200">My properties</Link>
+                <Link href="/reservation/myproperties" className="text-white hover:text-cyan-200">My reservationes</Link>
                 <Link href="/usersettings" className="text-white hover:text-cyan-200">Settings</Link>
             </div>
             )}

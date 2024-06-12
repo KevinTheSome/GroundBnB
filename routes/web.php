@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/gallery/{id}/remove', [ProportyController::class, 'myproperties'])->name('myproperties');
     
     Route::post('/reservation', [ReservationController::class, 'reserve'])->name('reserve');
+    Route::get('/reservation/myproperties', [ReservationController::class, 'myproperties'])->name('myproperties');
     // Route::get('/reservation', [ProportyController::class, 'myproperties'])->name('myproperties');
     // Route::get('/reservation', [ProportyController::class, 'myproperties'])->name('myproperties');
     // Route::get('/reservation', [ProportyController::class, 'myproperties'])->name('myproperties');

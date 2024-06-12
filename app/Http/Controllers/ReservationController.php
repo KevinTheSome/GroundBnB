@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Reservation;
+use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class ReservationController extends Controller
 {
@@ -26,5 +28,16 @@ class ReservationController extends Controller
         $reservation->days = $request->input('days');
         $reservation->taken = false;
         $reservation->save();
+    }
+
+    public function myproperties()
+    {
+        $reservationes = DB::table('reservations')
+            ->join('properties', 'properties.owner_id', '=', 'reservations.property_id')
+            ->select('reservations.*', 'properties.*')
+            ->get();
+
+        $reservationes = $reservationes->where('owner_id', auth()->user()->id);
+        return Inertia::render('user/MyProperties' , ['reservationes' => $reservationes]);
     }
 }
