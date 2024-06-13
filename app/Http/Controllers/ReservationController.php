@@ -30,11 +30,20 @@ class ReservationController extends Controller
         $reservation->save();
     }
 
+    public function accept(Request $request)
+    {
+        $request->validate([
+            'reservation_id' => 'required|integer',
+        ]);
+        $reservation = Reservation::find($request->input('reservation_id'));
+        $reservation->taken = true;
+        $reservation->save();
+    }
     public function myproperties()
     {
         $reservationes = DB::table('reservations')
             ->join('properties', 'properties.owner_id', '=', 'reservations.property_id')
-            ->select('reservations.*', 'properties.*')
+            ->select('reservations.*' ,'reservations.price as reservation_price', 'properties.*')
             ->get();
 
         $reservationes = $reservationes->where('owner_id', auth()->user()->id);

@@ -1,5 +1,4 @@
 import NavBar from '../components/NavBar'
-import Footer from '../components/Footer'
 import Propertie from '../components/Propertie'
 
 function Index({auth , properties})
@@ -22,7 +21,6 @@ function Index({auth , properties})
                 </section>
                 
             </div>
-            <Footer/>
         </>
     )
 }

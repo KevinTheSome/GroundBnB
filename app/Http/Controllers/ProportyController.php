@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Property;
 use App\Models\uploadedFile;
+use App\Models\Reviews;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class ProportyController extends Controller
@@ -57,7 +59,13 @@ class ProportyController extends Controller
 
     public function show($id)
     {
-        return Inertia::render('properties/Properties' , ['property' => Property::findorfail($id)]);
+        $reviews  = DB::table('reviews')
+            ->join('users', 'users.id', '=', 'reviews.user_id')
+            ->select('users.name' ,'reviews.*')
+            ->get();
+        
+        $reviews = $reviews->where('property_id' , $id);
+        return Inertia::render('properties/Properties' , ['property' => Property::findorfail($id) , 'reviews' => $reviews]);
     }
 
     public function edit($id)

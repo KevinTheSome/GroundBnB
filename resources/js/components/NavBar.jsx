@@ -25,7 +25,7 @@ function NavBar({user})
                 <Link href="/properties/new" className="text-white hover:text-cyan-200">Add property</Link>
                 <Link href="/myproperties" className="text-white hover:text-cyan-200">My properties</Link>
                 <Link href="/reservation/myproperties" className="text-white hover:text-cyan-200">My reservationes</Link>
-                <Link href="/usersettings" className="text-white hover:text-cyan-200">Settings</Link>
+                <Link href="/user/settings" className="text-white hover:text-cyan-200">Settings</Link>
             </div>
             <div className="md:hidden">
                 <button onClick={toggleMenu} aria-label="Open Menu" className="text-white focus:outline-none">
@@ -41,7 +41,7 @@ function NavBar({user})
                 <Link href="/properties/new" className="text-white hover:text-cyan-200">Add property</Link>
                 <Link href="/properties" className="text-white hover:text-cyan-200">My properties</Link>
                 <Link href="/reservation/myproperties" className="text-white hover:text-cyan-200">My reservationes</Link>
-                <Link href="/usersettings" className="text-white hover:text-cyan-200">Settings</Link>
+                <Link href="/user/settings" className="text-white hover:text-cyan-200">Settings</Link>
             </div>
             )}
         </nav>

@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProportyController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ReviewsController;
 use Inertia\Inertia;
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
@@ -43,17 +44,22 @@ Route::group(['middleware' => 'auth'], function () {
     
     Route::post('/reservation', [ReservationController::class, 'reserve'])->name('reserve');
     Route::get('/reservation/myproperties', [ReservationController::class, 'myproperties'])->name('myproperties');
+    Route::post('/reservation/myproperties/accept', [ReservationController::class, 'accept'])->name('accept');
+
+    Route::post('/rewiew/add', [ReviewsController::class, 'add'])->name('add');
     // Route::get('/reservation', [ProportyController::class, 'myproperties'])->name('myproperties');
     // Route::get('/reservation', [ProportyController::class, 'myproperties'])->name('myproperties');
-    // Route::get('/reservation', [ProportyController::class, 'myproperties'])->name('myproperties');
 
 
 
 
-
-
-    Route::inertia('/usersettings', 'user/UserSettings');
-    Route::post('/usersettings', [UserController::class, 'leave'])->name('leave');
+    Route::post('/user/settings/name', [UserController::class, 'name'])->name('name');
+    Route::post('/user/settings/email', [UserController::class, 'email'])->name('email');
+    Route::post('/user/settings/password', [UserController::class, 'password'])->name('password');
+    Route::post('/user/settings/delete', [UserController::class, 'delete'])->name('delete');
+    
+    Route::inertia('/user/settings', 'user/UserSettings');
+    Route::post('/user/settings', [UserController::class, 'leave'])->name('leave');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 

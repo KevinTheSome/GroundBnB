@@ -1,5 +1,4 @@
 import NavBar from '../components/NavBar'
-import Footer from '../components/Footer'
 
 function About({auth})
 {
@@ -14,7 +13,6 @@ function About({auth})
                 <p className='text-2xl p-1 text-center'>if you are reading this, I hope you have a good day 😀</p>
                 <p className='text-2xl p-1 text-center'>I hope you did not have any problems with this "website"</p>
             </div>
-            <Footer/>
         </>
     )
 }

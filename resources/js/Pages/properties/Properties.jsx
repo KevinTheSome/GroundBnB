@@ -2,12 +2,14 @@ import { useState , useEffect } from 'react';
 import { router , Link, useForm , Head } from '@inertiajs/react'
 
 import NavBar from '../../components/NavBar'
-import Footer from '../../components/Footer'
+import Review from '../../components/Review'
 
-function Properties({auth , property})
+function Properties({auth , property , reviews})
 {
+    const [comment , setComment] = useState({comment: '' , stars : 0 , property_id : property.id})
     const [price , setPrice] = useState([property.price , 1])
     const [error , setError] = useState('')
+    const [errorComment , setErrorComment] = useState('')
 
     const { data, setData, post, processing, errors } = useForm({
         startDate : new Date().toISOString().split("T")[0],
@@ -15,6 +17,12 @@ function Properties({auth , property})
         property_id : property.id,
         price : property.price,
         days : 1,
+    })
+
+    const reviewsJSX = reviews.map((review, key) => {
+        return (
+            <Review review={review} key={key} />
+        )
     })
 
     useEffect(() => {
@@ -56,37 +64,56 @@ function Properties({auth , property})
         post('/reservation')
     }
 
+    function handleSubmitRewiew(e){
+        e.preventDefault()
+        
+        if(comment.comment == "" || comment.comment == NaN || comment.rating == 0 || comment.rating == NaN){
+            setErrorComment('Please fill out all fields')
+            return
+        }
+
+        if(comment.comment.length > 510){
+            setErrorComment('Comment can\'t be longer then 510 characters')
+            return
+        }
+
+        router.post('/rewiew/add' , comment)
+    }
+
     return (
         <>
             <NavBar user={auth.user}/>
             <div className='w-full h-screen'>
                 <div className="flex flex-col items-center px-6 py-8 mx-auto md:h-screen">
                     <div className="w-full rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 bg-cyan-600 border-cyan-900">
-                        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                            <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl ">My Properties</h1>
-                            <label>
+                        <div className="p-6 space-y-4 md:space-y-6 sm:p-8 grid grid-cols-2">
+
+                        <img src={"/storage/"+property.image} className='w-[100%] h-[10vh] object-cover col-start-1 col-end-3 ' alt="house"></img>
+
+                            <label className='col-start-1 col-end-3'>
                                 <span className='text-white text-xl'>Description:</span>
                                 <p className='text-white'>{property.description}</p>
                             </label>
 
-                            <label>
-                                <span className='text-white text-xl'>Beds:</span>
+                            <span className='text-white text-xl flex col-start-1 col-end-3'>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M280-200h-40l-26-80h-54v-201q0-33 23.5-56t56.5-23v-120q0-33 23.5-56.5T320-760h320q33 0 56.5 23.5T720-680v120q33 0 56.5 23.5T800-480v200h-54l-26 80h-40l-26-80H306l-26 80Zm240-360h120v-120H520v120Zm-200 0h120v-120H320v120Zm-80 200h480v-120H240v120Zm480 0H240h480Z"/></svg>
+                                <p className='text-white text-  '>Sleeping spots:</p>
                                 <p className='text-white'>{property.beds}</p>
-                            </label>
+                            </span>
 
-                            <label>
-                                <span className='text-white text-xl'>Address:</span>
+                            <label className='col-start-1 col-end-3'>
+                                <span className='text-white text-xl '>Address:</span>
                                 <p className='text-white'>{property.address}</p>
                             </label>
 
-                            <label>
+                            <label className='col-start-1 col-end-3'>
                                 <span className='text-white text-xl'>Price Per Night:</span>
                                 <p className='text-white'>{property.price}€</p>
                             </label>
 
-                            <img src={"/storage/"+property.image} className='w-[100%] h-[10vh] object-cover' alt="house"></img>
-                            {auth.user.id === property.owner_id ? <Link as='button' href={`/properties/${property.id}/edit`}> <button className='bg-cyan-300 text-white font-bold rounded-lg text-sm px-5 p-3 mx-1 text-center'>Edit</button></Link> : ''}
-                            {auth.user.id === property.owner_id ? <Link as='button' method='delete' href={`/properties/${property.id}/delete`}> <button className='bg-red-300 text-white font-bold rounded-lg text-sm px-5 p-3 text-center'>Delete</button></Link> : ''}
+                            
+                            {auth.user.id === property.owner_id ? <Link as='button' href={`/properties/${property.id}/edit`}> <button className='bg-cyan-300 text-black font-bold rounded-lg text-sm px-5 p-3 mx-1 w-[90%] text-center'>Edit</button></Link> : ''}
+                            {auth.user.id === property.owner_id ? <Link as='button' method='delete' href={`/properties/${property.id}/delete`}> <button className='bg-red-300 text-black font-bold rounded-lg text-sm px-5 p-3 w-[90%] text-center'>Delete</button></Link> : ''}
                             {auth.user.id === property.owner_id ? '' : 
                                 <>
                                     <form onSubmit={handleSubmit}>
@@ -112,11 +139,35 @@ function Properties({auth , property})
                                     </form>
                                 </>
                             }
+                            {auth.user.id === property.owner_id ? '' : <>
+                                <form onSubmit={handleSubmitRewiew}>
+                                <label>
+                                    <span className='text-white text-xl'>Description:</span>
+                                    <textarea value={comment.comment} onChange={(e) => setComment({...comment , comment : e.target.value})} name="reviewComment" id="reviewComment" />
+                                </label>
+                                <br/>
+                                <label>
+                                    <span className='text-white text-xl'>Rating:</span>
+                                    <select onChange={(e) => setComment({...comment , stars : e.target.value})} className='bg-cyan-300 text-xl'>
+                                        <option value={0}>--Please choose an option--</option>
+                                        <option value={1}>⭐</option>
+                                        <option value={2}>⭐⭐</option>
+                                        <option value={3}>⭐⭐⭐</option>
+                                        <option value={4}>⭐⭐⭐⭐</option>
+                                        <option value={5}>⭐⭐⭐⭐⭐</option>
+                                    </select>
+                                </label>
+                                <br/>
+                                <p className='text-red-500'>{errorComment}</p>
+                                <button type="submit" className='bg-cyan-300 text-white font-bold rounded-lg text-sm px-5 p-3 mx-1 text-center'>Leave a review</button>
+                                </form>
+                            </> }
+                            
+                            {reviewsJSX ?? <p>No reviews yet</p>}
                         </div>
                     </div>
                 </div>
             </div>
-            <Footer/>
         </>
     )
 }

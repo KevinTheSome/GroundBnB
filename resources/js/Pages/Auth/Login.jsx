@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { router , Link, useForm , Head } from '@inertiajs/react'
 
 import NavBar from '../../components/NavBar'
-import Footer from '../../components/Footer'
-
 
 function Properties()
 {
@@ -50,7 +48,6 @@ function Properties()
                     </div>
                 </div>
             </div>
-            <Footer/>
         </>
     )
 }
