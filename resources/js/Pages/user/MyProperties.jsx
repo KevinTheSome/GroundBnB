@@ -17,6 +17,7 @@ function MyProperties({auth , reservationes})
   
     return (
         <>
+            <Head title="My properties" />
             <NavBar user={auth.user}/>
             <div className='w-full h-screen'>
                 <h1 className='text-4xl text-center pt-5 font-bold'>User properties</h1>

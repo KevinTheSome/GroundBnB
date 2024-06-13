@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { router , useForm } from '@inertiajs/react'
+import { router , useForm ,Head } from '@inertiajs/react'
 
 import NavBar from '../../components/NavBar'
 
@@ -24,6 +24,7 @@ function Properties()
 
     return (
         <>
+            <Head title={"Becoming a new GroundBnB"} />
             <NavBar/>
             <div className='w-full h-screen'>
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

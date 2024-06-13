@@ -1,9 +1,11 @@
+import {Head} from '@inertiajs/react'
 import NavBar from '../components/NavBar'
 
 function About({auth})
 {
     return(
         <>
+            <Head title="GroundBnB About" />
             <NavBar user={auth.user}/>
             <div className='w-full h-screen'>
                 <h1 className="text-4xl p-4 font-bold text-center">About</h1>

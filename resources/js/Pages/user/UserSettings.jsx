@@ -78,6 +78,7 @@ function UserSettings({auth})
   
     return (
         <>
+            <Head title={auth.user.name + " Settings"} />
             <NavBar user={auth.user}/>
             <div className='w-full h-screen'>
                 <h1 className='text-4xl text-center pt-5 font-bold'>User settings</h1>

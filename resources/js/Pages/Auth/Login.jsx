@@ -19,6 +19,7 @@ function Properties()
   
     return (
         <>
+            <Head title={"Login at GroundBnB"} />
             <NavBar/>
             <div className='w-full h-screen'>
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

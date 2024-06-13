@@ -17,6 +17,29 @@ class ProportyController extends Controller
         return Inertia::render('Index' , ['properties' => Property::all()]);
     }
 
+    public function search(Request $request)
+    {
+        $properties = Property::where('description', 'like', "%{$request->input('search')}%")->orWhere('address', 'LIKE', "%{$request->input('search')}%")->get();
+        return Inertia::render('Index', ['properties' => $properties ?? Property::all()]);
+    }
+
+    public function sort(Request $request)
+    {
+        $properties = Property::where('description', 'like', "%{$request->input('search')}%")->orWhere('address', 'LIKE', "%{$request->input('search')}%")->get();
+        switch ($request->input('sort')) {
+            case 'asc':
+                $properties = $properties->sortBy('price');
+                break;
+            case 'desc':
+                $properties = $properties->sortByDesc('price');
+                break;
+
+            default:
+        }
+        return Inertia::render('Index', ['properties' => $properties ?? Property::all()]);
+
+    }
+
     public function new()
     {
         return Inertia::render('properties/PropertiesNew');

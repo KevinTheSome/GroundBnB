@@ -82,6 +82,7 @@ function Properties({auth , property , reviews})
 
     return (
         <>
+            <Head title={"GroundBnB " + property.description} />
             <NavBar user={auth.user}/>
             <div className='w-full h-screen'>
                 <div className="flex flex-col items-center px-6 py-8 mx-auto md:h-screen">
@@ -116,15 +117,15 @@ function Properties({auth , property , reviews})
                             {auth.user.id === property.owner_id ? <Link as='button' method='delete' href={`/properties/${property.id}/delete`}> <button className='bg-red-300 text-black font-bold rounded-lg text-sm px-5 p-3 w-[90%] text-center'>Delete</button></Link> : ''}
                             {auth.user.id === property.owner_id ? '' : 
                                 <>
-                                    <form onSubmit={handleSubmit}>
-                                        <label>
+                                    <form onSubmit={handleSubmit} className='grid grid-cols-2 col-start-1 col-end-3'>
+                                        <label className='col-start-1 col-end-1'>
                                             <span className='text-white text-xl'>Start Date:</span>
                                             <input type="date" value={data.startDate} onChange={(e) => setData('startDate' , e.target.value)} name="startDate" id="startDate" min={new Date().toISOString().split("T")[0]} />
                                         </label>
 
                                         <br/>
 
-                                        <label>
+                                        <label className='col-start-2 col-end-2 row-start-1 row-end-1'>
                                             <span className='text-white text-xl'>End Date:</span>
                                             <input type="date" value={data.endDate} onChange={(e) => setData('endDate' , e.target.value)} name="endDate" id="endDate" min={new Date().toISOString().split("T")[0]} />
                                         </label>
@@ -132,21 +133,21 @@ function Properties({auth , property , reviews})
                                         <p className='text-red-500'>{errors.startDate}</p>
                                         <p className='text-red-500'>{errors.endDate}</p>
 
-                                        <p className='text-white'>{price[0]}€ for {price[1]}</p>
+                                        <p className='text-white col-start-1 col-end-3 row-start-3 row-end-4'>{price[0]}€ for {price[1]}</p>
                                         <p className='text-red-500'>{error}</p>
                                         
-                                        <button type="submit" className='bg-cyan-300 text-white font-bold rounded-lg text-sm px-5 p-3 mx-1 text-center'>Book</button>
+                                        <button type="submit" className='bg-cyan-300 text-white font-bold rounded-lg text-sm px-5 p-3 mx-1 text-center col-start-1 col-end-3 row-start-4 row-end-5'>Book</button>
                                     </form>
                                 </>
                             }
                             {auth.user.id === property.owner_id ? '' : <>
-                                <form onSubmit={handleSubmitRewiew}>
-                                <label>
+                                <form onSubmit={handleSubmitRewiew} className='grid grid-cols-2 col-start-1 col-end-3'>
+                                <label className='grid col-start-1 col-end-3'>
                                     <span className='text-white text-xl'>Description:</span>
                                     <textarea value={comment.comment} onChange={(e) => setComment({...comment , comment : e.target.value})} name="reviewComment" id="reviewComment" />
                                 </label>
                                 <br/>
-                                <label>
+                                <label className='grid col-start-1 col-end-3'>
                                     <span className='text-white text-xl'>Rating:</span>
                                     <select onChange={(e) => setComment({...comment , stars : e.target.value})} className='bg-cyan-300 text-xl'>
                                         <option value={0}>--Please choose an option--</option>
@@ -159,7 +160,7 @@ function Properties({auth , property , reviews})
                                 </label>
                                 <br/>
                                 <p className='text-red-500'>{errorComment}</p>
-                                <button type="submit" className='bg-cyan-300 text-white font-bold rounded-lg text-sm px-5 p-3 mx-1 text-center'>Leave a review</button>
+                                <button type="submit" className='bg-cyan-300 text-white font-bold rounded-lg text-sm px-5 p-3 mx-1 text-center col-start-1 col-end-3 row-start-5 row-end-6'>Leave a review</button>
                                 </form>
                             </> }
                             

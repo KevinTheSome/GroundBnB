@@ -14,6 +14,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 });
 
 Route::get('/', [ProportyController::class, 'index']);
+Route::post('/search', [ProportyController::class, 'search']);
+Route::post('/sort', [ProportyController::class, 'sort']);
 
 Route::get('/about', function () {
     return Inertia::render('About');

@@ -22,6 +22,7 @@ function PropertiesNew({auth})
 
     return (
         <>
+            <Head title={"New GroundBnB property"} />
             <NavBar user={auth.user}/>
             <div className='w-full h-screen'>
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
